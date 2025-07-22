@@ -1,0 +1,16 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.recordingButton {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-color: #646cff;
+  cursor: pointer;
+}
