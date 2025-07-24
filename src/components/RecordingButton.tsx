@@ -1,9 +1,14 @@
 type RecordButtonProps = {
   state: string
+  loading?: boolean
   onClick: () => void
 }
 
-function RecordButton({ state, onClick }: RecordButtonProps) {
+function RecordButton({
+  state,
+  loading=false,
+  onClick
+}: RecordButtonProps) {
   let stateClass;
   switch(state) {
     case "recording":
@@ -18,7 +23,7 @@ function RecordButton({ state, onClick }: RecordButtonProps) {
   }
 
   const handleClick = () => {
-    if(state === "notready") return
+    if(state === "notready" || loading) return
 
     onClick()
   }
@@ -27,7 +32,10 @@ function RecordButton({ state, onClick }: RecordButtonProps) {
     <button
       className={`recordingButton ${stateClass}`}
       onClick={handleClick}
-    />
+      disabled={loading}
+    >
+      {loading && <span className="recordingButton__spinner" />}
+    </button>
   )
 }
 export default RecordButton
