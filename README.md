@@ -1,69 +1,37 @@
-# React + TypeScript + Vite
+# 🎙️ Browser Audio Recorder with FFmpeg & Spectrogram
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This prototype demonstrates an in-browser audio recorder that:
 
-Currently, two official plugins are available:
+- Streams microphone input using the MediaRecorder API
+- Converts the final WebM audio to WAV format using `@ffmpeg/ffmpeg` (WebAssembly)
+- Generates a spectrogram image from the recording using FFmpeg's `showspectrumpic` filter
+- Displays downloadable WAV audio and spectrogram outputs
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Built with **React**, **Vite**, **TypeScript**, and **FFmpeg WASM**.
 
-## Expanding the ESLint configuration
+> 🚀 [Live Demo](https://audio-capture-demo.vercel.app/) — *(hosted version)*
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📸 Preview
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+![screenshot](screenshot.png)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+| Recording | Output |
+|-----------|--------|
+| 🎤 Live audio recording with preview button | 🎧 WAV audio file + 📊 Spectrogram PNG |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🧠 Why This Exists
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This was built as a prototype to explore:
+- How to run FFmpeg in the browser
+- Converting and analyzing audio files entirely on the client
+- Working with real-time audio data in chunks
+- A future goal of streaming live audio into a transcription engine like Whisper
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧪 Running Locally
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/jasonsof/audio-capture-demo.git
+cd audio-capture-demo
+npm install
+npm run dev
 ```
