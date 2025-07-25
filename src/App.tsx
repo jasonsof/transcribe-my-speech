@@ -56,7 +56,9 @@ function App() {
         // Convert to WAV
         await ffmpeg.exec(['-i', 'input.webm', 'output.wav'])
         const wavData = await ffmpeg.readFile('output.wav')
-        const wavBlob = new Blob([wavData.buffer], { type: 'audio/wav' })
+        if (typeof wavData === "string") throw new Error("Unexpected string output from ffmpeg.readFile for output.wav")
+
+        const wavBlob = new Blob([wavData.slice().buffer], { type: 'audio/wav' })
         setOutputFile(new File([wavBlob], `recorded-audio-${now}.wav`, { type: 'audio/wav' }))
 
         // Generate spectrogram
@@ -66,7 +68,9 @@ function App() {
           'spectrogram.png',
         ])
         const spectrogramData = await ffmpeg.readFile('spectrogram.png')
-        const spectrogramBlob = new Blob([spectrogramData.buffer], { type: 'image/png' })
+        if (typeof spectrogramData === "string") throw new Error("Unexpected string output from ffmpeg.readFile for spectrogram.png")
+
+        const spectrogramBlob = new Blob([spectrogramData.slice().buffer], { type: 'image/png' })
         setSpectrogramFile(new File([spectrogramBlob], `audio-spectrogram-${now}.png`, { type: 'image/png' }))
       }
     }
